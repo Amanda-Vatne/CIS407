@@ -1,0 +1,117 @@
+package numGuess;
+import java.util.Scanner;
+import java.util.Random;
+
+public class NumGuess {
+	
+	static int numToGuess() {
+		Random rand = new Random();
+		int randNum = rand.nextInt(100);;
+		return randNum;
+	}
+	
+	static int promptGuess(Scanner input) {
+		System.out.print("\nPick a number between 0 and 100: ");
+		int userGuess = input.nextInt();
+		return userGuess;
+	}
+	
+	static boolean isNum(int userGuess, int randNum) {
+		boolean numOne = false;
+		if (userGuess == randNum) {
+			numOne = true;
+		}
+		return numOne;
+	}
+	
+	static void printIntro() {
+		System.out.println("Welcome to the 'Guess the Number' Game");
+	}
+	
+	static void printGuessMessage() {
+		System.out.println("\nI'm thinking of a number. Try to guess it!");
+	}
+	
+	static void printCorrect(int counter) {
+		System.out.println("\nYou got it in " + counter + " tries!");
+		if(counter > 7) {
+			System.out.println("That took way too long!");
+		}
+		else if(counter > 3 & counter <= 7){
+			System.out.println("Not too bad! You've got some potential.");
+		}
+		else {
+			System.out.println("Great work! You are a mathmatical wizard.");
+		}
+	}
+	
+	static void printGuessAgain(int userGuess, int randNum) {
+		int plusTen = randNum + 10;
+		int minusTen = randNum - 10;
+		if (userGuess > randNum & userGuess > plusTen) {
+			System.out.println("Way too high! Guess again.");
+		}
+		if (userGuess > randNum & userGuess <= plusTen) {
+			System.out.println("Too high! Guess again.");
+		}
+		if (userGuess < randNum & userGuess >= minusTen) {
+			System.out.println("Too low! Guess again.");
+		}
+		if (userGuess < randNum & userGuess < minusTen) {
+			System.out.println("Way too low! Guess again.");
+		}
+		
+		
+
+	}
+	
+
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		printIntro();
+		
+		String contLoop = " ";
+		while(true) {
+			//Generate Num
+			int randNum  = numToGuess();
+			//System.out.println("----" + randNum);
+			printGuessMessage();
+			int userGuess = -1;
+			int counter = 0;
+			
+			
+			
+			while (randNum != userGuess) {
+				counter++;
+				//Prompt
+				userGuess = promptGuess(input);
+			
+				//Check
+				boolean numChecker = isNum(userGuess, randNum);
+				
+				//Print Try again
+				if(numChecker == false) {
+					printGuessAgain(userGuess, randNum);
+				}
+				
+				
+			
+			}
+			
+			printCorrect(counter);
+			
+			
+			System.out.print("\nPlay again? (y/n): ");
+			contLoop = input.next();
+			if (contLoop.equalsIgnoreCase("n")){
+				break;
+			}
+		}
+		
+		input.close();
+		System.out.println("Bye!");
+
+	}
+
+}
