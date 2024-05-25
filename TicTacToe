@@ -1,0 +1,143 @@
+package ticTacToe;
+import java.util.Scanner;
+
+public class TicTacToe {
+	//print Welcome
+	static void printWelcome() {
+		System.out.println("Welcome to Tic Tac Toe");
+	}
+	
+	//Print Game Board
+	static void printBoard(String[][] boardGrid) {
+		System.out.println("\n+---+---+---+");
+		for (String[] row : boardGrid) {
+			for (String value : row) {
+				System.out.print("| " + value + " ");
+			}
+			System.out.println("|\n+---+---+---+");
+		}
+	}
+	
+	
+	//Start Game
+	static void startGame(String[][] boardGrid,Scanner input) {
+		int counter = 1;
+		boolean i = false;
+		while(i == false) {
+			i = takeTurn(boardGrid, input, counter);
+			counter+=1;
+		}
+	}
+		
+	
+	//Take Turn
+	static boolean takeTurn(String[][] boardGrid,Scanner input, int counter) {
+		boolean x = false;
+		String playerMarker = " ";
+		
+		if(counter % 2 != 0) {
+			System.out.println("\nX's turn");
+			playerMarker = "X";
+		}else {
+			System.out.println("\nO's turn");
+			playerMarker = "O";
+		}
+		
+		
+		while (true) {
+			System.out.print("Pick row (1, 2, 3): ");
+			int rowNum = input.nextInt()-1;	
+			System.out.print("Pick column (1, 2, 3): ");
+			int colNum = input.nextInt()-1;
+			System.out.print(" ");
+	
+			if(boardGrid[rowNum] [colNum] == " "){
+				boardGrid[rowNum] [colNum] = playerMarker;
+				break;
+			}else {
+				System.out.println("\nNot available. Try again");
+			}
+		}
+		
+		printBoard(boardGrid);
+		
+		
+		if(checkGameOver(boardGrid, playerMarker) == true) {
+			x = true;
+		}
+		
+	
+		if(counter == 9) {
+			System.out.println("\nLooks like we have a tie");
+			x = true;
+		}
+		
+		return x;
+	}
+	
+	
+	//Check Game Over
+	static boolean checkGameOver(String[][] boardGrid, String playerMarker) {
+		boolean y = false;
+		
+		//Row Win
+		for(int row = 0; row < 3; row++) {
+			if(boardGrid[row][0] == playerMarker &&
+				boardGrid[row][1] == playerMarker &&
+				boardGrid[row][2] == playerMarker) {
+					System.out.println("\n" + playerMarker + " wins!");
+					y = true;
+				}
+		}
+		
+		//Col Win
+		for(int col = 0; col < 3; col++) {
+			if(boardGrid[0][col] == playerMarker &&
+				boardGrid[1][col] == playerMarker &&
+				boardGrid[2][col] == playerMarker) {
+					System.out.println("\n" + playerMarker + " wins!");
+					y = true;
+				}
+		}
+		
+		//Diag win
+		if(boardGrid[0][0] == playerMarker &&
+				boardGrid[1][1] == playerMarker &&
+				boardGrid[2][2] == playerMarker) {
+					System.out.println("\n" + playerMarker + " wins!");
+					y = true;
+				}
+		if(boardGrid[0][2] == playerMarker &&
+				boardGrid[1][1] == playerMarker &&
+				boardGrid[2][0] == playerMarker) {
+					System.out.println("\n" + playerMarker + " wins!");
+					y = true;
+				}
+		
+		return y;
+	}
+	
+	
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		printWelcome();
+		while(true) {
+			String[][] boardGrid = {{" "," "," "},
+									{" "," "," "},
+									{" "," "," "}};
+		
+			printBoard(boardGrid);
+		
+			startGame(boardGrid, input);
+			
+			System.out.print("\nWould you like to play again? (Y/N): ");
+			String playAgain = input.next();
+			
+			if(playAgain.equalsIgnoreCase("n")) {
+				System.out.println("\nThank you for playing. Good bye.");
+				break;
+			}
+		}
+	}
+
+}
