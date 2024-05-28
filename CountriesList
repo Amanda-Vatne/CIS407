@@ -1,0 +1,63 @@
+package countriesList;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class CountriesList {
+	
+	static ArrayList<String> countriesList = new ArrayList<String>();
+	static Scanner input = new Scanner(System.in);
+
+
+	static void printWelcome() {
+		System.out.println("Country List Manager");
+	}
+	
+	static void printMenu() {
+		System.out.println("Menu");
+		System.out.println("1 - List countries");
+		System.out.println("2 - Add a country");
+		System.out.println("3 - Exit");
+		
+	}
+	
+	static int menuChoice() {
+		int userChoice = 0;
+		System.out.print("\nEnter menu number: ");
+		userChoice = input.nextInt();
+		return userChoice;
+	}
+	
+	static void listCountries(ArrayList<String> countriesList) {
+		if(countriesList.isEmpty()) {
+			System.out.println("List is currently empty");
+		}
+		System.out.println("\n----------");
+		for (int x = 0; x < countriesList.size(); x++) {
+			System.out.println(countriesList.get(x));
+		}
+		System.out.println("----------");
+	}
+	
+	static boolean checkForCountry(ArrayList<String> countriesList, String newCountry) {
+		boolean x = false;
+		if(countriesList.contains(newCountry)) {
+			x = true;
+		}
+		return x;
+	}
+	
+	static void addCountry(ArrayList<String> countriesList, Scanner input) {
+		System.out.print("Enter Country: ");
+		String newCountry = input.next();
+		boolean checkExists = checkForCountry(countriesList, newCountry);
+		if(checkExists == false) {
+			countriesList.add(newCountry);
+			System.out.println(newCountry + " was added");
+		}else {
+			System.out.println(newCountry + " is already on the list");
+		}
+		
+	}
+
+}
