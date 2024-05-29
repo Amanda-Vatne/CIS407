@@ -1,0 +1,70 @@
+package stackCalculator;
+import java.util.*;
+
+public class StackCalculator {
+
+	static Stack<Double> stackList = new Stack<Double>();
+	static Scanner input = new Scanner(System.in);
+	
+	static void printWelcome() {
+		System.out.println("Stack Calculator");
+	}
+	static void printMenu() {
+		System.out.println("\nCommands: push, add, sub, mult, div, list, clear, quit");	
+	}
+	
+	
+	static void push(Stack<Double> stackList, String userChoice) {
+		String[] tempValue = userChoice.split("\\s");
+		double d = Double.parseDouble(tempValue[1]);
+		stackList.push(d);	
+	}
+	
+	
+	static void add(Stack<Double> stackList) {
+		Double x = stackList.pop();
+		Double y = stackList.pop();
+		Double z = x + y;
+		stackList.push(z);	
+	}
+	static void sub(Stack<Double> stackList) {
+		Double x = stackList.pop();
+		Double y = stackList.pop();
+		Double z = x - y;
+		stackList.push(z);	
+	}
+	static void mult(Stack<Double> stackList) {
+		Double x = stackList.pop();
+		Double y = stackList.pop();
+		Double z = x * y;
+		stackList.push(z);	
+	}
+	static void div(Stack<Double> stackList) {
+		Double x = stackList.pop();
+		Double y = stackList.pop();
+		Double z = y / x;
+		stackList.push(z);	
+	}
+	
+	
+	
+	
+	static void listStack(Stack<Double> stackList) {
+		if(stackList.isEmpty()) {
+			System.out.println("List is currently empty");
+		}else {		
+			Iterator<Double> iterator = stackList.iterator();  
+			while(iterator.hasNext()) {
+				Double tempValue = iterator.next();
+				Double tempNum = tempValue * 1.0;
+				System.out.format("%7.4f%n", tempNum);
+			}
+		}
+	}
+
+	static void clearStack() {
+		System.out.println("");	
+	}
+
+	
+}
